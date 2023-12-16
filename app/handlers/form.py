@@ -44,11 +44,11 @@ async def photo_received(message: types.message, state: FSMContext):
 
         try:
             if not os.path.isdir("users_info"):
-                await os.mkdir("users_info")
+                os.mkdir("users_info")
             if not os.path.isdir(f"users_info/tg_id={message.from_id}"):
-                await os.mkdir(f"users_info/tg_id={message.from_id}")
+                os.mkdir(f"users_info/tg_id={message.from_id}")
             if not os.path.isdir(f"users_info/tg_id={message.from_id}/photos"):
-                await os.mkdir(f"users_info/tg_id={message.from_id}/photos")
+                os.mkdir(f"users_info/tg_id={message.from_id}/photos")
             with open(src, 'wb') as new_file:
                 new_file.write(downloaded_file.getvalue())
         except Exception as e:

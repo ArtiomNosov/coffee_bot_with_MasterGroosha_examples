@@ -1,19 +1,20 @@
 import sqlite3
 import datetime
 db_name = 'meet_bot_db.sql'
-
+name_max_length = 255
+# Review 11.07.2023
 def create_tables_if_not_exists():
     try:
         conn = sqlite3.connect(db_name)
         cur = conn.cursor()
         cur.execute(
-            '''
+            f'''
             CREATE TABLE IF NOT EXISTS user (
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
             tg_id int NOT NULL, 
             photo_name text,
             photo_path text,
-            name varchar(255),
+            name varchar({name_max_length}),
             description text,
             type varchar(255) NOT NULL);
             '''
@@ -309,6 +310,6 @@ async def get_time_next_match_from_db(user_id):
     if result is None or len(result) == 0:
         return datetime.timedelta(0)
     print(f"Aaaaaaaaaaa: {datetime.timedelta(days=7) - (datetime.datetime.now() - result[0][1])}")
-    return datetime.timedelta(days=7) - (datetime.datetime.now() - result[0][1])
+    return datetime.timedelta(seconds=10) - (datetime.datetime.now() - result[0][1])
 
 
